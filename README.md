@@ -1,21 +1,40 @@
 # Cat vs Dog CNN with Grad-CAM
 
-## TODO / Next Steps
-- Revisit CNN design after studying receptive fields, effective stride, feature hierarchy, regularization (aug/label smoothing/mixup-cutmix), schedulers, and CAM variants (Grad-CAM++, Score-CAM) plus attribution caveats.
-- Re-implement from scratch post-study; run controlled experiments beyond a plain CNN: depthwise/DSC blocks, residual links, and transfer baselines (ResNet18/34, MobileNetV3, EfficientNet-B0). Compare CAM quality & accuracy.
-- Add evaluation hygiene: stratified split with seeds, sanity-check subset, confusion matrix, per-class precision/recall, ROC-AUC, calibration, checkpointing best models, and run logging (TensorBoard/W&B).
-
 ## Overview
 - Task: Binary image classification (cats vs dogs) using a custom CNN trained on `data/training_set` with validation split and evaluated on `data/test_set`.
 - Model: convolutional network with conv-BN-ReLU-MaxPool blocks (up to conv4 considered in analysis) and a dropout-regularized MLP head. Grad-CAM is applied on conv4 for interpretability.
 - Robust loading: `SafeImageFolder` skips corrupted images (e.g., PIL `UnidentifiedImageError`).
 
-## Key Artifacts
-- Training curves: see training/validation loss & accuracy in [training_history.png](training_history.png).
-- Filters: per-layer filter visualizations [conv1_filters.png](conv1_filters.png) … [conv4_filters.png](conv4_filters.png).
-- Feature maps: per-layer activations [conv1_feature_maps.png](conv1_feature_maps.png) … [conv4_feature_maps.png](conv4_feature_maps.png).
-- Attribution: Grad-CAM heatmap overlay (conv4 target) in [grad_cam.png](grad_cam.png).
-- Weights: trained parameters saved to [cat_dog_cnn_model.pth](cat_dog_cnn_model.pth).
+## Key Artifacts (inline)
+- Training curves
+  
+	![training_history](training_history.png)
+
+- Filters (conv1-conv4)
+  
+	![conv1_filters](conv1_filters.png)
+  
+	![conv2_filters](conv2_filters.png)
+  
+	![conv3_filters](conv3_filters.png)
+  
+	![conv4_filters](conv4_filters.png)
+
+- Feature maps (conv1-conv4)
+  
+	![conv1_feature_maps](conv1_feature_maps.png)
+  
+	![conv2_feature_maps](conv2_feature_maps.png)
+  
+	![conv3_feature_maps](conv3_feature_maps.png)
+  
+	![conv4_feature_maps](conv4_feature_maps.png)
+
+- Grad-CAM (conv4 target)
+  
+	![grad_cam](grad_cam.png)
+
+- Weights: trained parameters saved to cat_dog_cnn_model.pth
 
 ## Quick Start
 ```bash
@@ -42,3 +61,8 @@ python main.py
 ## Credits
 - Dataset: folder-based cats vs dogs under `data/`.
 - Code: custom PyTorch pipeline with SafeImageFolder, deeper CNN, and Grad-CAM utility.
+
+## TODO / Next Steps
+- Revisit CNN design after studying receptive fields, effective stride, feature hierarchy, regularization (aug/label smoothing/mixup-cutmix), schedulers, and CAM variants (Grad-CAM++, Score-CAM) plus attribution caveats.
+- Re-implement from scratch post-study; run controlled experiments beyond a plain CNN: depthwise/DSC blocks, residual links, and transfer baselines (ResNet18/34, MobileNetV3, EfficientNet-B0). Compare CAM quality & accuracy.
+- Add evaluation hygiene: stratified split with seeds, sanity-check subset, confusion matrix, per-class precision/recall, ROC-AUC, calibration, checkpointing best models, and run logging (TensorBoard/W&B).
