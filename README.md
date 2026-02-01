@@ -4,6 +4,7 @@
 - Task: Binary image classification (cats vs dogs) using a custom CNN trained on `data/training_set` with validation split and evaluated on `data/test_set`.
 - Model: convolutional network with conv-BN-ReLU-MaxPool blocks (up to conv4 considered in analysis) and a dropout-regularized MLP head. Grad-CAM is applied on conv4 for interpretability.
 - Robust loading: `SafeImageFolder` skips corrupted images (e.g., PIL `UnidentifiedImageError`).
+- Docker: `intel/intel-extension-for-pytorch:2.8.10-xpu`
 
 ## Key Artifacts (inline)
 - Training curves
